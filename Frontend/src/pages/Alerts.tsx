@@ -52,12 +52,17 @@ export const Alerts: React.FC = () => {
 
   // Load case list once
   useEffect(() => {
-    api.getInvestigations().then((list) => {
-      setCases(list);
-      if (!caseParam && list.length > 0) {
-        setSelectedCaseId(list[0].id);
-      }
-    });
+    api
+      .getInvestigations()
+      .then((list) => {
+        setCases(list);
+        if (!caseParam && list.length > 0) {
+          setSelectedCaseId(list[0].id);
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to load investigations:', err);
+      });
   }, []);
 
   useEffect(() => {
@@ -68,10 +73,17 @@ export const Alerts: React.FC = () => {
   useEffect(() => {
     if (!selectedCaseId) return;
     setLoading(true);
-    api.getAlerts(selectedCaseId).then((data) => {
-      setAlerts(data);
-      setLoading(false);
-    });
+    api
+      .getAlerts(selectedCaseId)
+      .then((data) => {
+        setAlerts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Failed to load alerts:', err);
+        setAlerts([]);
+        setLoading(false);
+      });
   }, [selectedCaseId]);
 
   const alertTypes = useMemo(() => {

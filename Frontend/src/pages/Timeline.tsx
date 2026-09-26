@@ -42,12 +42,17 @@ export const Timeline: React.FC = () => {
   const [query, setQuery] = useState('');
 
   useEffect(() => {
-    api.getInvestigations().then((list) => {
-      setCases(list);
-      if (!caseParam && list.length > 0) {
-        setSelectedCaseId(list[0].id);
-      }
-    });
+    api
+      .getInvestigations()
+      .then((list) => {
+        setCases(list);
+        if (!caseParam && list.length > 0) {
+          setSelectedCaseId(list[0].id);
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to load investigations:', err);
+      });
   }, []);
 
   useEffect(() => {
@@ -57,10 +62,17 @@ export const Timeline: React.FC = () => {
   useEffect(() => {
     if (!selectedCaseId) return;
     setLoading(true);
-    api.getTimeline(selectedCaseId).then((data) => {
-      setEvents(data);
-      setLoading(false);
-    });
+    api
+      .getTimeline(selectedCaseId)
+      .then((data) => {
+        setEvents(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Failed to load timeline:', err);
+        setEvents([]);
+        setLoading(false);
+      });
   }, [selectedCaseId]);
 
   const filteredEvents = useMemo(() => {

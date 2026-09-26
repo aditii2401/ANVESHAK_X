@@ -40,6 +40,16 @@ const FORCE_MOCK = envObj.VITE_USE_MOCK === 'true' || !envObj.VITE_API_URL;
 const USE_MOCK = FORCE_MOCK;
 
 /**
+ * Endpoints that don't have a backend route wired up yet.
+ * These always use mock data, regardless of VITE_API_URL, until their
+ * real endpoints exist. Remove an entry here once its backend route is ready.
+ */
+const MOCK_ONLY_ENDPOINTS = {
+  alerts: true,
+  timeline: true,
+};
+
+/**
  * Simulated latency helper for realistic asynchronous UI feel
  */
 const delay = (ms = 100): Promise<void> =>
@@ -196,7 +206,7 @@ export const api = {
    * Fetch investigation chronological timeline
    */
   async getTimeline(caseId?: string): Promise<TimelineEvent[]> {
-    if (!USE_MOCK) {
+    if (!USE_MOCK && !MOCK_ONLY_ENDPOINTS.timeline) {
       const target = caseId ? encodeURIComponent(caseId) : 'default';
       const res = await fetch(`${API_BASE_URL}/investigations/${target}/timeline`);
       if (!res.ok) throw new Error(`Failed to fetch timeline (HTTP ${res.status})`);
@@ -226,7 +236,7 @@ export const api = {
    * Fetch active alerts and priority signals
    */
   async getAlerts(caseId?: string): Promise<AlertItem[]> {
-    if (!USE_MOCK) {
+    if (!USE_MOCK && !MOCK_ONLY_ENDPOINTS.alerts) {
       const url = `${API_BASE_URL}/alerts${
         caseId ? `?caseId=${encodeURIComponent(caseId)}` : ''
       }`;
