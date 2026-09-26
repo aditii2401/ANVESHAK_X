@@ -446,11 +446,11 @@ A fully synthetic dataset ships with the backend to demonstrate every capability
 **Team Anveshak** — Smart India Hackathon 2026
 Problem Statement: **SIH26189** · Theme: **Blockchain & Cybersecurity**
 
-*(Udit Raghuwanshi - Team Lead 
-Anirudha Sharma - ML Lead
-Aditi Dhakad - Backend pipelines 
-Vanshika Jain - Graph Analysis
-Alafiya Naaz and Aditiya Tiwari - Frontend)*
+*Udit Raghuwanshi - Team Lead, 
+Anirudha Sharma - ML Lead,
+Aditi Dhakad - Backend pipelines, 
+Vanshika Jain - Graph Analysis,
+Alafiya Naaz and Aditiya Tiwari - Frontend*
 ---
 
 ## 16. License & Disclaimer
