@@ -1,0 +1,16 @@
+# Backend
+backend/venv/
+backend/.env
+backend/__pycache__/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Node
+Frontend/node_modules/
+Frontend/.env
+
+
+# ZIP files
+*.zip
